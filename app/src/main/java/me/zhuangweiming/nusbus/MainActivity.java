@@ -20,7 +20,7 @@ import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.utils.HttpsUtil;
 import me.zhuangweiming.nusbus.view.BusStopAdapter;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnTaskCompleted{
     final String BUS_TIMEING_HOST = "https://nextbus.comfortdelgro.com.sg";
     final String BUS_STOP_API = "/eventservice.svc/BusStops";
     final String BUS_API = "/eventservice.svc/Shuttleservice?busstopname=";  // + busstopname
@@ -32,21 +32,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new GetBusStops().execute(BUS_TIMEING_HOST + BUS_STOP_API);
-        final BusStopAdapter busStopAdapter = new BusStopAdapter(MainActivity.this, R.layout.bus_stop, busStopList);
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(busStopAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                BusStop busStop = busStopList.get(position);
-                Toast.makeText(MainActivity.this, busStop.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        new GetBusStops(MainActivity.this).execute(BUS_TIMEING_HOST + BUS_STOP_API);
     }
 
     public class GetBusStops extends AsyncTask<String, Void, String> {
+        private OnTaskCompleted taskCompleted;
+
+        public GetBusStops(OnTaskCompleted activityContext){
+            this.taskCompleted = activityContext;
+        }
+
         protected String doInBackground(String... urls) {
             return HttpsUtil.sendHttpsRequest(urls[0]);
         }
@@ -57,9 +52,11 @@ public class MainActivity extends Activity {
                 JSONObject busStopsObject = jsonObject.getJSONObject("BusStopsResult");
                 JSONArray busStops = busStopsObject.getJSONArray("busstops");
                 initBusStops(busStops);
+                taskCompleted.onTaskCompleted();
             } catch (JSONException e) {
                 Log.e("GetBusStops", e.getLocalizedMessage());
             }
+
         }
     }
 
@@ -75,4 +72,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public void onTaskCompleted() {
+        final BusStopAdapter busStopAdapter = new BusStopAdapter(MainActivity.this, R.layout.bus_stop, busStopList);
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        listView.setAdapter(busStopAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                BusStop busStop = busStopList.get(position);
+                Toast.makeText(MainActivity.this, busStop.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
+
