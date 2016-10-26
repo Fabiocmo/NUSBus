@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import me.zhuangweiming.nusbus.view.BusStopFragment;
+import me.zhuangweiming.nusbus.view.ShuttleFragment;
 
 /**
  * Created by Thibault on 16/10/2016.
@@ -14,4 +15,5 @@ import me.zhuangweiming.nusbus.view.BusStopFragment;
 public interface AppComponent {
 
     void inject(BusStopFragment busStopFragment);
+    void inject(ShuttleFragment shuttleFragment);
 }

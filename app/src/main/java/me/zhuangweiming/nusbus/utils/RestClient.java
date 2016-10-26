@@ -13,6 +13,8 @@ import javax.inject.Singleton;
 
 import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.model.BusStopsResult;
+import me.zhuangweiming.nusbus.model.Shuttle;
+import me.zhuangweiming.nusbus.model.ShuttleResult;
 import me.zhuangweiming.nusbus.services.BusStopApi;
 
 /**
@@ -23,7 +25,7 @@ public class RestClient {
 
     private static final String TAG = "RestClient";
     @Inject
-    protected BusStopApi busService;
+    protected BusStopApi busStopApi;
     @Inject
     protected Context context;
     @Inject
@@ -34,7 +36,7 @@ public class RestClient {
     }
 
     public BusStopApi getForecastService() {
-        return busService;
+        return busStopApi;
     }
 
     public static boolean isConnected(Context context) {
@@ -50,8 +52,19 @@ public class RestClient {
         List<BusStop> result = null;
 
         try {
-            BusStopsResult busStopsResult = this.busService.getBusStops().execute().body().getBusStopsResult();
+            BusStopsResult busStopsResult = this.busStopApi.getBusStops().execute().body().getBusStopsResult();
             result = busStopsResult.getBusStops();
+        } catch (Exception e) {
+            throw new IOException("Network not available");
+        }
+        return result;
+    }
+
+    public List<Shuttle> getShuttles(String busStopName) throws IOException {
+        List<Shuttle> result = null;
+        try {
+            ShuttleResult shuttleResult = this.busStopApi.getShuttles(busStopName).execute().body().getShuttleResult();
+            result = shuttleResult.getShuttles();
         } catch (Exception e) {
             throw new IOException("Network not available");
         }

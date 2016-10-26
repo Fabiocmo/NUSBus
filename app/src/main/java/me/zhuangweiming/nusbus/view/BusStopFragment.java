@@ -1,6 +1,7 @@
 package me.zhuangweiming.nusbus.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,10 @@ public class BusStopFragment extends Fragment implements BusStopLoadedCallback{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 BusStop busStop = busStopList.get(position);
-                Toast.makeText(getActivity(), busStop.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), ShuttleActivity.class);
+                intent.putExtra("busStopName", busStop.getName());
+                startActivity(intent);
+//                Toast.makeText(getActivity(), busStop.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
