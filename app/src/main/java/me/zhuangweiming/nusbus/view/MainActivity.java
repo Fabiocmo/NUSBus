@@ -1,61 +1,28 @@
 package me.zhuangweiming.nusbus.view;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import me.zhuangweiming.nusbus.BusApplication;
 import me.zhuangweiming.nusbus.R;
-import me.zhuangweiming.nusbus.model.BusStop;
-import me.zhuangweiming.nusbus.services.BusStopLoadedCallback;
-import me.zhuangweiming.nusbus.services.BusStopService;
 
-public class MainActivity extends Activity implements BusStopLoadedCallback {
 
-    @Inject
-    BusStopService busStopService;
-
-    private List<BusStop> busStopList = new ArrayList<>();
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ((BusApplication) getApplication()).getAppComponent().inject(this);
-
-        busStopService.loadBusStops(this);
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction busStopFragTransaction = fragmentManager.beginTransaction();
+        Fragment busStopFragment = new BusStopFragment();
+        busStopFragTransaction.add(R.id.bus_stop_fragment, busStopFragment);
+        busStopFragTransaction.commit();
     }
 
-    @Override
-    public void onBusStopsLoaded(List<BusStop> busStops) {
-        this.busStopList =  busStops;
-        final BusStopAdapter busStopAdapter = new BusStopAdapter(MainActivity.this, R.layout.bus_stop, busStopList);
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(busStopAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                BusStop busStop = busStopList.get(position);
-                Toast.makeText(MainActivity.this, busStop.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public void onBusStopLoadingError(Exception exception) {
-        Log.d("pb", "error");
-    }
 
 }
 
