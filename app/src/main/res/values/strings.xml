@@ -3,5 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bus_stop">Bus Stop</string>
     <string name="map">Map</string>
+    <string name="nus_bus">NUS BUS</string>
+    <string name="about">About</string>
 
 </resources>
