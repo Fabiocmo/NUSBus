@@ -11,9 +11,11 @@ import java.util.Properties;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.zhuangweiming.nusbus.model.Bus;
 import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.model.BusStopsResult;
 import me.zhuangweiming.nusbus.services.BusStopApi;
+import me.zhuangweiming.nusbus.services.BusTrackingApi;
 
 /**
  * Created by Thibault on 16/10/2016.
@@ -24,6 +26,8 @@ public class RestClient {
     private static final String TAG = "RestClient";
     @Inject
     protected BusStopApi busService;
+    @Inject
+    protected BusTrackingApi busTrackingService;
     @Inject
     protected Context context;
     @Inject
@@ -55,6 +59,18 @@ public class RestClient {
         } catch (Exception e) {
             throw new IOException("Network not available");
         }
+        return result;
+    }
+
+    public List<Bus> getBusPositions() throws IOException {
+        List<Bus> result;
+
+        try {
+            result = this.busTrackingService.getBusPositions(properties.getProperty("app.token")).execute().body();
+        } catch (Exception e) {
+            throw new IOException("Network not available");
+        }
+
         return result;
     }
 }

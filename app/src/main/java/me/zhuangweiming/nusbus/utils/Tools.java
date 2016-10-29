@@ -26,4 +26,5 @@ public class Tools {
         properties.load(inputStream);
         return properties;
     }
+
 }

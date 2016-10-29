@@ -1,5 +1,8 @@
 package me.zhuangweiming.nusbus.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -8,7 +11,7 @@ import java.util.Date;
  * Created by Thibault on 16/10/2016.
  */
 
-public class Bus {
+public class Bus implements Parcelable{
 
     @SerializedName("node_id")
     long nodeId;
@@ -35,6 +38,28 @@ public class Bus {
         this.speed = speed;
         this.heading = heading;
     }
+
+    protected Bus(Parcel in) {
+        nodeId = in.readLong();
+        vehicleSerial = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        altitude = in.readDouble();
+        speed = in.readDouble();
+        heading = in.readDouble();
+    }
+
+    public static final Creator<Bus> CREATOR = new Creator<Bus>() {
+        @Override
+        public Bus createFromParcel(Parcel in) {
+            return new Bus(in);
+        }
+
+        @Override
+        public Bus[] newArray(int size) {
+            return new Bus[size];
+        }
+    };
 
     public long getNodeId() {
         return nodeId;
@@ -98,6 +123,22 @@ public class Bus {
 
     public void setHeading(double heading) {
         this.heading = heading;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(nodeId);
+        parcel.writeString(vehicleSerial);
+        parcel.writeDouble(latitude);
+        parcel.writeDouble(longitude);
+        parcel.writeDouble(altitude);
+        parcel.writeDouble(speed);
+        parcel.writeDouble(heading);
     }
 }
 

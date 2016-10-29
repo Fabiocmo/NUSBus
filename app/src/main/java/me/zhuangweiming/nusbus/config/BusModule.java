@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import me.zhuangweiming.nusbus.services.BusStopApi;
+import me.zhuangweiming.nusbus.services.BusTrackingApi;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -38,27 +39,32 @@ public class BusModule {
 
     @Provides
     @Singleton
-    Retrofit provideRestAdapter(OkHttpClient client, Gson gson, Properties properties) {
+    Retrofit.Builder provideRestAdapter(OkHttpClient client, Gson gson) {
 
         Executor executor = Executors.newCachedThreadPool();
 
-        String url = "https://" + properties.getProperty("app.busstopapi.url");
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+        Retrofit.Builder retrofit = new Retrofit.Builder()
                 .client(client)
                 .callbackExecutor(executor)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
+                .addConverterFactory(GsonConverterFactory.create(gson));
 
         return retrofit;
     }
 
     @Provides
     @Singleton
-    BusStopApi provideBusStopApi(Retrofit retrofit) {
+    BusStopApi provideBusStopApi(Retrofit.Builder retrofit,  Properties properties) {
 
-        return retrofit.create(BusStopApi.class);
+        String url = "https://" + properties.getProperty("app.busstopapi.url")+"/";
+        return retrofit.baseUrl(url).build().create(BusStopApi.class);
+    }
+
+    @Provides
+    @Singleton
+    BusTrackingApi provideBusTrackingApi(Retrofit.Builder retrofit,  Properties properties) {
+
+        String url = "https://" + properties.getProperty("app.busposapi.url")+"/";
+        return retrofit.baseUrl(url).build().create(BusTrackingApi.class);
     }
 
     @Provides

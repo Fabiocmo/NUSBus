@@ -15,11 +15,13 @@ import javax.inject.Inject;
 
 import me.zhuangweiming.nusbus.BusApplication;
 import me.zhuangweiming.nusbus.R;
+import me.zhuangweiming.nusbus.model.Bus;
 import me.zhuangweiming.nusbus.model.BusStop;
+import me.zhuangweiming.nusbus.services.BusPositionsLoadedCallback;
 import me.zhuangweiming.nusbus.services.BusStopLoadedCallback;
 import me.zhuangweiming.nusbus.services.BusStopService;
 
-public class MainActivity extends Activity implements BusStopLoadedCallback {
+public class MainActivity extends Activity implements BusStopLoadedCallback, BusPositionsLoadedCallback {
 
     @Inject
     BusStopService busStopService;
@@ -57,5 +59,14 @@ public class MainActivity extends Activity implements BusStopLoadedCallback {
         Log.d("pb", "error");
     }
 
+    @Override
+    public void onBusPositionsLoaded(List<Bus> busses) {
+        Log.d("busses", ""+busses.size());
+    }
+
+    @Override
+    public void onBusPositionsLoadingError(Exception exception) {
+
+    }
 }
 
