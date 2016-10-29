@@ -45,7 +45,9 @@ public class LoadBusStopsAsyncTask extends AsyncTask<Long, Void, List<BusStop>> 
 
         List<BusStop> result = null;
         try {
+
             result = client.getBusStops();
+
         } catch (IOException e) {
 
             pendingException = e;

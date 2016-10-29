@@ -1,4 +1,4 @@
-package me.zhuangweiming.nusbus.view;
+package me.zhuangweiming.nusbus.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
