@@ -20,6 +20,8 @@ public class BusStopService {
     protected RestClient restClient;
     @Inject
     protected Context context;
+    @Inject
+    protected DataCache dataCache;
 
     @Inject
     public BusStopService() {
@@ -29,7 +31,7 @@ public class BusStopService {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void loadBusStops(BusStopLoadedCallback callback) {
 
-        LoadBusStopsAsyncTask asyncLoader = new LoadBusStopsAsyncTask(restClient, context, callback);
+        LoadBusStopsAsyncTask asyncLoader = new LoadBusStopsAsyncTask(restClient, context, callback, dataCache);
 
         Long[] params = {};
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;

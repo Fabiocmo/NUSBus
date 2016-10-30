@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhuangweiming.nusbus.BusApplication;
 import me.zhuangweiming.nusbus.R;
+import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.model.Shuttle;
 import me.zhuangweiming.nusbus.services.LoadShuttleCallback;
 import me.zhuangweiming.nusbus.services.ShuttleService;
@@ -28,6 +29,8 @@ import me.zhuangweiming.nusbus.view.adapters.RecyclerShuttleAdapter;
  */
 public class ShuttleFragment extends Fragment implements LoadShuttleCallback, RecyclerShuttleAdapter.OnItemClickListener {
 
+    private static final String STOP_KEY = "stop_key";
+
     @Inject
     protected ShuttleService shuttleService;
 
@@ -35,18 +38,27 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
 
     private List<Shuttle> shuttleList = new ArrayList<>();
 
-    private String busStopName;
+    private BusStop busStop;
 
     public ShuttleFragment() {
         // Required empty public constructor
     }
 
+    public static ShuttleFragment newInstance(BusStop stop)
+    {
+        ShuttleFragment sh = new ShuttleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(STOP_KEY, stop);
+        sh.setArguments(bundle);
+
+        return sh;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((BusApplication) getActivity().getApplication()).getAppComponent().inject(this);
-        busStopName = getActivity().getIntent().getStringExtra("busStopName");
+        busStop = getArguments().getParcelable(STOP_KEY);
     }
 
     @Override
@@ -55,7 +67,7 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
         View currentView = inflater.inflate(R.layout.fragment_shuttle, container, false);
         ButterKnife.bind(this, currentView);
 
-        shuttleService.loadShuttles(this, busStopName);
+        shuttleService.loadShuttles(this, busStop.getName());
         return currentView;
     }
 

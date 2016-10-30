@@ -11,10 +11,12 @@ import android.view.MenuItem;
 
 import me.zhuangweiming.nusbus.AboutPageActivity;
 import me.zhuangweiming.nusbus.R;
+import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.model.Tab;
+import me.zhuangweiming.nusbus.view.fragmentcallbacks.BusStopClickCallback;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BusStopClickCallback{
     private Toolbar mToolbar;
     private TabLayout tabLayout;
     private ViewPager tabViewPager;
@@ -63,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBusStopClicked(BusStop stop) {
+        Intent intent = ShuttleActivity.getIntent(this, stop);
+        startActivity(intent);
     }
 }
 

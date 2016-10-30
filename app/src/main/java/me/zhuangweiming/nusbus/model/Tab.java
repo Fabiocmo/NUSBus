@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import me.zhuangweiming.nusbus.R;
 import me.zhuangweiming.nusbus.view.BusStopFragment;
 import me.zhuangweiming.nusbus.view.MapTabFragment;
@@ -23,7 +25,8 @@ public class Tab {
     public static void setupMainActivityViewPager(ViewPager viewPager, FragmentManager fragmentManager) {
         TabAdpater adpater = new TabAdpater(fragmentManager);
         adpater.addFragment(new BusStopFragment(), "Bus Stop");
-        adpater.addFragment(new MapTabFragment(), "Map");
+        LatLng nus = new LatLng(1.290665504, 103.772663576);
+        adpater.addFragment(MapTabFragment.newInstance(nus), "Map");
         viewPager.setAdapter(adpater);
     }
 

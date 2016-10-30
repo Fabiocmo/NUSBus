@@ -28,8 +28,17 @@
             app:expandedTitleMarginEnd="64dp"
             android:fitsSystemWindows="true">
 
-
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
+                android:id="@+id/map_container"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                android:minHeight="0dp"
+                android:clickable="true"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
+           <!-- <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:map="http://schemas.android.com/apk/res-auto"
                 android:name="me.zhuangweiming.nusbus.view.MapTabFragment"
                 android:id="@+id/map"
@@ -41,7 +50,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 map:liteMode="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"/>-->
 
 
             <android.support.v7.widget.Toolbar

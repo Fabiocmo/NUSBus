@@ -28,6 +28,8 @@ public class BusDownloadIntentService extends IntentService {
 
     @Inject
     RestClient client;
+    @Inject
+    protected DataCache dataCache;
 
     public BusDownloadIntentService() {
         super("BusDownloadIntentService");
@@ -62,8 +64,9 @@ public class BusDownloadIntentService extends IntentService {
 
                 HashMap<String, Shuttle> shuttles;
                 result = new ArrayList<>(busMap.values());
+               /* HashMap<String, List<Bus>> candidates = new HashMap<>();
 
-               /* List<BusStop> stops = client.getBusStops();
+                List<BusStop> stops = dataCache.getBusStops();
                 for(BusStop stop : stops)
                 {
                     List<Shuttle> sh = client.getShuttles(stop.getName());
@@ -87,6 +90,13 @@ public class BusDownloadIntentService extends IntentService {
                                 Log.d("distance ", "" +dist);
                                 if(dist < 200)
                                 {
+                                    if(candidates.get(s.getName()) == null)
+                                    {
+                                        candidates.put(s.getName(), new ArrayList<Bus>());
+                                    }
+                                    candidates.get(s.getName()).add(bus);
+
+
                                     Log.e("bus pos ",  "Bus "+bus.getVehicleSerial()+" is on line "+s.getName()+" at station "+stop.getName());
                                     Toast.makeText(getApplicationContext(), "Bus "+bus.getVehicleSerial()+" is on line "+s.getName()+" at station "+stop.getName(), Toast.LENGTH_LONG).show();
                                 }

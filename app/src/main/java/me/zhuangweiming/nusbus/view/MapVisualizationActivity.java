@@ -68,7 +68,7 @@ public class MapVisualizationActivity extends AppCompatActivity implements OnMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //busTrackingService.loadBusPostions(this);
+
         LatLng nus = new LatLng(1.290665504, 103.772663576);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nus, 17));
         scheduleAlarm();
@@ -85,7 +85,9 @@ public class MapVisualizationActivity extends AppCompatActivity implements OnMap
             if(marker == null)
             {
                 LatLng pos = new LatLng(bus.getLatitude(), bus.getLongitude());
-                MarkerOptions mo = new MarkerOptions().position(pos).icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon)).title(bus.getVehicleSerial());
+                MarkerOptions mo = new MarkerOptions().position(pos)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon))
+                        .title(bus.getVehicleSerial());
 
                 if(mMap != null)
                 {
@@ -101,10 +103,6 @@ public class MapVisualizationActivity extends AppCompatActivity implements OnMap
                 MarkerAnimation.animateMarkerToGB(marker, pos, new LatLngInterpolator.Linear());
             }
         }
-
-
-
-
     }
 
     @Override

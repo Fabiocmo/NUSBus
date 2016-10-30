@@ -23,11 +23,13 @@ public class LoadBusStopsAsyncTask extends AsyncTask<Long, Void, List<BusStop>> 
     private WeakReference<BusStopLoadedCallback> mCallBack;
     private Context context;
     private Exception pendingException;
+    private DataCache dataCache;
 
-    public LoadBusStopsAsyncTask(RestClient client, Context context, BusStopLoadedCallback callBack) {
+    public LoadBusStopsAsyncTask(RestClient client, Context context, BusStopLoadedCallback callBack, DataCache dt) {
         mCallBack = new WeakReference<BusStopLoadedCallback>(callBack);
         this.context = context;
         this.client = client;
+        this.dataCache = dt;
     }
 
     @Override
@@ -66,6 +68,7 @@ public class LoadBusStopsAsyncTask extends AsyncTask<Long, Void, List<BusStop>> 
         }
 
         if (pendingException == null) {
+            dataCache.storeBusStops(result);
             ref.onBusStopsLoaded(result);
         } else {
             ref.onBusStopLoadingError(pendingException);
