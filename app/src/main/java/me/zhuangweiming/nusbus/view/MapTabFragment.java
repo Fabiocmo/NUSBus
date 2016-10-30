@@ -4,6 +4,8 @@ package me.zhuangweiming.nusbus.view;
 import android.Manifest;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -311,10 +313,17 @@ public class MapTabFragment extends Fragment implements OnMapReadyCallback, BusP
             LatLng pos = new LatLng(stop.getLatitude(), stop.getLongitude());
             MarkerOptions mo = new MarkerOptions()
                     .position(pos)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_bus))
+                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("ic_launcher", 70, 70)))
                     .title(stop.getName());
             mMap.addMarker(mo);
         }
+    }
+
+    public Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "mipmap", getActivity().getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        imageBitmap.recycle();
+        return resizedBitmap;
     }
 
     @Override
