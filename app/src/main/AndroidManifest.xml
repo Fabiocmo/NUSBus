@@ -22,16 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MapVisualizationActivity">
+        <activity android:name=".view.MapVisualizationActivity"></activity>
 
-        </activity>
-        <receiver
-            android:name=".services.AlarmReceiver">
-        </receiver>
+        <receiver android:name=".services.AlarmReceiver"></receiver>
+
         <service
             android:name=".services.BusDownloadIntentService"
-            android:exported="false"></service>
-        <activity android:name=".view.ShuttleActivity"></activity>
+            android:exported="false" />
+
+        <activity android:name=".view.ShuttleActivity" />
+        <activity android:name=".AboutPageActivity"></activity>
     </application>
 
 </manifest>

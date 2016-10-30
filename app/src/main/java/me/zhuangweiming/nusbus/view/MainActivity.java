@@ -1,5 +1,6 @@
 package me.zhuangweiming.nusbus.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,8 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.zhuangweiming.nusbus.AboutPageActivity;
 import me.zhuangweiming.nusbus.R;
-
 import me.zhuangweiming.nusbus.model.Tab;
 
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, AboutPageActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

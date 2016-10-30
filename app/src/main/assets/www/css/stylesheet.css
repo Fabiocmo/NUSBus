@@ -1,0 +1,52 @@
+body {
+    background-color: #f0eff4;
+    font-family: sans-serif;
+}
+
+.author {
+    margin: 10%;
+}
+
+.faq, .feedback {
+    background-color: white;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.img-td {
+    text-align: right;
+    width: 50%;
+}
+
+.bus-img {
+    width: 60%;
+}
+
+.built-by-td {
+    vertical-align: bottom;
+}
+
+.built-by {
+    color: #989898;
+    font-size: small;
+}
+.name {
+    color: black;
+    font-size: large;
+}
+
+.feedback {
+    text-align: center;
+    font-size: 90%;
+    margin-top: 5%;
+    padding: 1%;
+}
+
+.question {
+    font-size: 95%;
+}
+
+.answer {
+    font-size: 90%;
+    color: gray;
+}
