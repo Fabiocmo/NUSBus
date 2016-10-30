@@ -310,10 +310,15 @@ public class MapTabFragment extends Fragment implements OnMapReadyCallback, BusP
 
         for(BusStop stop:busStops)
         {
+            int icSize = 70;
             LatLng pos = new LatLng(stop.getLatitude(), stop.getLongitude());
+            if(zoomPos.latitude == pos.latitude && zoomPos.longitude == pos.longitude)
+            {
+                icSize *=3;
+            }
             MarkerOptions mo = new MarkerOptions()
                     .position(pos)
-                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("ic_launcher", 70, 70)))
+                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("ic_launcher", icSize, icSize)))
                     .title(stop.getName());
             mMap.addMarker(mo);
         }
