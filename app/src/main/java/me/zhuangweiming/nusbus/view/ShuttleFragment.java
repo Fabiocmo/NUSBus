@@ -74,6 +74,7 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
     @Override
     public void onShuttleLoaded(List<Shuttle> shuttles) {
         this.shuttleList = shuttles;
+        applyFilter(shuttleList);
         final RecyclerShuttleAdapter shuttleAdapter = new RecyclerShuttleAdapter(getActivity(), shuttleList, this);
         shuttleListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         shuttleListView.setAdapter(shuttleAdapter);
@@ -89,4 +90,34 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
     public void onItemClick(View v, int position, Shuttle trip) {
 
     }
+
+    private void applyFilter(List<Shuttle> shuttles) {
+        boolean swaped = true;
+        while (swaped) {
+            swaped = false;
+            for (int i = 0; i < shuttles.size() - 1; i++) {
+                int j = i + 1;
+                String current = shuttles.get(i).getArrivalTime();
+                String next = shuttles.get(i + 1).getArrivalTime();
+                if (current.equals("-")) {
+                    if (!next.equals("-")) {
+                        swap(i, j, shuttles);
+                        swaped = true;
+                    }
+                } else {
+                    if (!next.equals("-") && Integer.valueOf(current) > Integer.valueOf(next)) {
+                        swap(i, j, shuttles);
+                        swaped = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private void swap(int i, int j, List<Shuttle> shuttles) {
+        Shuttle temp = shuttles.get(i);
+        shuttles.set(i, shuttles.get(j));
+        shuttles.set(j, temp);
+    }
+
 }

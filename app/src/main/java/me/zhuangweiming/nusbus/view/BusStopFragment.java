@@ -20,22 +20,27 @@ import butterknife.ButterKnife;
 import me.zhuangweiming.nusbus.BusApplication;
 import me.zhuangweiming.nusbus.R;
 import me.zhuangweiming.nusbus.model.BusStop;
+import me.zhuangweiming.nusbus.model.Shuttle;
 import me.zhuangweiming.nusbus.services.BusStopLoadedCallback;
 import me.zhuangweiming.nusbus.services.BusStopService;
+import me.zhuangweiming.nusbus.services.ShuttleService;
 import me.zhuangweiming.nusbus.view.adapters.BusStopAdapter;
 import me.zhuangweiming.nusbus.view.fragmentcallbacks.BusStopClickCallback;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BusStopFragment extends Fragment implements BusStopLoadedCallback{
+public class BusStopFragment extends Fragment implements BusStopLoadedCallback {
 
     @Inject
     protected BusStopService busStopService;
+    @Inject
+    protected ShuttleService shuttleService;
 
     @BindView(R.id.bus_stop_list_view) protected ListView busStopListView;
 
     private List<BusStop> busStopList = new ArrayList<>();
+    private List<Shuttle> shuttleList = new ArrayList<>();
 
     public BusStopFragment() {
     }
@@ -74,10 +79,12 @@ public class BusStopFragment extends Fragment implements BusStopLoadedCallback{
                 ((BusStopClickCallback)getActivity()).onBusStopClicked(busStop);
             }
         });
+
     }
 
     @Override
     public void onBusStopLoadingError(Exception exception) {
         Log.d("pb", "error");
     }
+
 }
