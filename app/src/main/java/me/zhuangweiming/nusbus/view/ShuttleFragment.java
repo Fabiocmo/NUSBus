@@ -3,6 +3,7 @@ package me.zhuangweiming.nusbus.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,11 +35,15 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
     @Inject
     protected ShuttleService shuttleService;
 
-    @BindView(R.id.shuttle_list) protected RecyclerView shuttleListView;
+    @BindView(R.id.shuttle_list)
+    protected RecyclerView shuttleListView;
 
     private List<Shuttle> shuttleList = new ArrayList<>();
 
     private BusStop busStop;
+
+    @BindView(R.id.swipe_refresh_layout)
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     public ShuttleFragment() {
         // Required empty public constructor
@@ -68,6 +73,13 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
         ButterKnife.bind(this, currentView);
 
         shuttleService.loadShuttles(this, busStop.getName());
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                shuttleService.loadShuttles(ShuttleFragment.this, busStop.getName());
+            }
+        });
+
         return currentView;
     }
 
@@ -78,6 +90,7 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
         shuttleListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         shuttleListView.setAdapter(shuttleAdapter);
         shuttleAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

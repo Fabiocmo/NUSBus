@@ -71,7 +71,12 @@ public class RecyclerShuttleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             //we generate the color
 
             vh.name.setText(currentTrip.getName());
-            vh.arrival.setText(currentTrip.getArrivalTime());
+            String suff = currentTrip.getArrivalTime().compareTo("-") != 0
+                    && currentTrip.getArrivalTime().compareTo("Arr") != 0 ? " min" : "";
+            vh.arrival.setText(currentTrip.getArrivalTime()+suff);
+            suff = currentTrip.getNextArrivalTime().compareTo("-") != 0
+                    && currentTrip.getNextArrivalTime().compareTo("Arr") != 0 ? "min" : "";
+            vh.nextArrival.setText(currentTrip.getNextArrivalTime()+suff);
 
             //cast holder to VHItem and set data
         }
@@ -116,6 +121,9 @@ public class RecyclerShuttleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         @BindView(R.id.arrival_time)
         protected TextView arrival;
+
+        @BindView(R.id.arrival_time_2)
+        protected TextView nextArrival;
 
 
         public ViewHolder(View v) {
