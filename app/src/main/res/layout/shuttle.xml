@@ -13,22 +13,8 @@
     card_view:cardCornerRadius="4dp">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
 
-        <TextView
-            android:id="@+id/shuttle_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/font_size"
-            tools:text="A1"
-            android:fontFamily="sans-serif"
-            android:layout_marginLeft="38dp"
-            android:layout_marginStart="38dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="center" />
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -52,7 +38,7 @@
 >
 
                 <TextView
-                    android:text="@string/subsequent"
+                    android:text="@string/next_bus"
                     android:textColor="#000"
                     android:layout_weight="4"
                     android:layout_width="0dp"
@@ -62,7 +48,7 @@
                     android:gravity="right" />
 
                 <TextView
-                    android:id="@+id/arrival_time_2"
+                    android:id="@+id/arrival_time"
                     android:layout_width="0dp"
                     tools:text = "25min"
                     android:layout_weight="1"
@@ -84,7 +70,7 @@
     >
 
                 <TextView
-                    android:text="@string/next_bus"
+                    android:text="@string/subsequent"
                     android:layout_marginRight="8dp"
                     android:textColor="#000"
                     android:layout_weight="4"
@@ -94,7 +80,7 @@
                     android:gravity="right" />
 
                 <TextView
-                    android:id="@+id/arrival_time"
+                    android:id="@+id/arrival_time_2"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -106,6 +92,18 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/shuttle_name"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/font_size"
+            tools:text="A1"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView" />
 
 
     </RelativeLayout>

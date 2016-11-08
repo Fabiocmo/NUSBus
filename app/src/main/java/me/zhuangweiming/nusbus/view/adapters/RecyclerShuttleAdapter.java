@@ -72,10 +72,10 @@ public class RecyclerShuttleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             vh.name.setText(currentTrip.getName());
             String suff = currentTrip.getArrivalTime().compareTo("-") != 0
-                    && currentTrip.getArrivalTime().compareTo("Arr") != 0 ? " min" : "";
+                    && currentTrip.getArrivalTime().compareTo("Arr") != 0 ? "" : "";
             vh.arrival.setText(currentTrip.getArrivalTime()+suff);
             suff = currentTrip.getNextArrivalTime().compareTo("-") != 0
-                    && currentTrip.getNextArrivalTime().compareTo("Arr") != 0 ? "min" : "";
+                    && currentTrip.getNextArrivalTime().compareTo("Arr") != 0 ? "" : "";
             vh.nextArrival.setText(currentTrip.getNextArrivalTime()+suff);
 
             //cast holder to VHItem and set data

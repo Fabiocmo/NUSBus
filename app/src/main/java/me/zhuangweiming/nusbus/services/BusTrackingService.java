@@ -26,7 +26,6 @@ public class BusTrackingService implements BusPositionsLoadedCallback {
     @Inject
     protected Context context;
 
-
     BusBroadCastReceiver busBroadCastReceiver;
 
     IntentFilter filter;
@@ -85,7 +84,7 @@ public class BusTrackingService implements BusPositionsLoadedCallback {
                 context.startService(i);
                 if(isDownloadScheduled.get())
                 {
-                    handler.postDelayed(this, 20000);
+                    handler.postDelayed(this, 2000);
                 }
             }
         }, 100);

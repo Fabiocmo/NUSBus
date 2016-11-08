@@ -5,7 +5,7 @@
     <string name="map">Map</string>
     <string name="nus_bus">NUS BUS</string>
     <string name="about">About</string>
-    <string name="next_bus">Next Bus</string>
-    <string name="subsequent">Subsequent</string>
+    <string name="next_bus">Next</string>
+    <string name="subsequent">Subs</string>
 
 </resources>
