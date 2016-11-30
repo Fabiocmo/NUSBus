@@ -14,7 +14,6 @@ import javax.inject.Singleton;
 import me.zhuangweiming.nusbus.model.Bus;
 import me.zhuangweiming.nusbus.model.BusStop;
 import me.zhuangweiming.nusbus.model.BusStopsResult;
-import me.zhuangweiming.nusbus.model.LoginTokenResponse;
 import me.zhuangweiming.nusbus.model.Shuttle;
 import me.zhuangweiming.nusbus.model.ShuttleResult;
 import me.zhuangweiming.nusbus.services.BusStopApi;
@@ -66,11 +65,11 @@ public class RestClient {
     }
 
 
-    public List<Bus> getBusPositions(String token) throws IOException {
+    public List<Bus> getBusPositions() throws IOException {
         List<Bus> result;
 
         try {
-            result = this.busTrackingService.getBusPositions(token).execute().body();
+            result = this.busTrackingService.getBusPositions().execute().body();
         } catch (Exception e) {
             throw new IOException("Network not available");
         }
@@ -78,21 +77,6 @@ public class RestClient {
         return result;
     }
 
-
-    public String getLoginToken() throws IOException {
-        String domain = properties.getProperty("app.domain");
-        String name = properties.getProperty("app.username");
-        String pwd = properties.getProperty("app.pwd");
-        LoginTokenResponse result = new LoginTokenResponse("");
-
-        try {
-            result = this.busTrackingService.getLoginToken(domain, name, pwd).execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result.getToken();
-    }
 
     public List<Shuttle> getShuttles(String busStopName) throws IOException {
         List<Shuttle> result = null;

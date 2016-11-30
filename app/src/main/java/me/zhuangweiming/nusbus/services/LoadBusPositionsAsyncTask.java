@@ -47,22 +47,18 @@ public class LoadBusPositionsAsyncTask extends AsyncTask<Long, Void, List<Bus>> 
     protected List<Bus> doInBackground(Long... cityId) {
 
         List<Bus> result = null;
-        String token;
         try {
 
             HashMap<String, Bus> busMap = new HashMap<>();
-            token = client.getLoginToken();
-            result = client.getBusPositions(token);
+            result = client.getBusPositions();
 
-            for(Bus bus : result)
-            {
+            for(Bus bus : result) {
                 busMap.put(bus.getVehicleSerial(), bus);
             }
 
             result = new ArrayList<>(busMap.values());
 
         } catch (IOException e) {
-
             pendingException = e;
             Log.e(TAG, "error during task", e);
         }
