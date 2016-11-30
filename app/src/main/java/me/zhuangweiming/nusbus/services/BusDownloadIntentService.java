@@ -53,9 +53,11 @@ public class BusDownloadIntentService extends IntentService {
         if (intent != null) {
             ((BusApplication) getApplication()).getAppComponent().inject(this);
             ArrayList<Bus> result = null;
+            String token;
             try {
                 HashMap<String, Bus> busMap = new HashMap<>();
-                result = new ArrayList<>(client.getBusPositions());
+                token = client.getLoginToken();
+                result = new ArrayList<>(client.getBusPositions(token));
 
                 for(Bus bus : result)
                 {

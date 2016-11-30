@@ -7,7 +7,7 @@
     android:id="@+id/card_view"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="64dp"
     android:layout_margin="8dp"
     android:layout_marginBottom="2dp"
     card_view:cardCornerRadius="4dp">
@@ -23,19 +23,33 @@
             android:id="@+id/imageView"
             android:layout_marginLeft="8dp" />
 
+        <TextView
+            android:id="@+id/shuttle_name"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/font_size"
+            tools:text="A1"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_toEndOf="@+id/shuttle_name"
-            android:layout_toRightOf="@+id/shuttle_name">
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="2dp"
->
+                android:layout_marginTop="2dp">
 
                 <TextView
                     android:text="@string/next_bus"
@@ -67,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="2dp"
-    >
+                android:layout_marginBottom="2dp">
 
                 <TextView
                     android:text="@string/subsequent"
@@ -92,18 +106,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/shuttle_name"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/font_size"
-            tools:text="A1"
-            android:fontFamily="sans-serif"
-            android:gravity="left|center_vertical"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageView"
-            android:layout_toEndOf="@+id/imageView" />
 
 
     </RelativeLayout>
