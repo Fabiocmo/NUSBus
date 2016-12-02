@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity implements BusStopClickCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        FragmentManager fragmentManager = this.getSupportFragmentManager();
-//        FragmentTransaction busStopFragTransaction = fragmentManager.beginTransaction();
-//        Fragment busStopFragment = new BusStopFragment();
-//        busStopFragTransaction.add(R.id.bus_stop_fragment, busStopFragment);
-//        busStopFragTransaction.commit();
-
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 

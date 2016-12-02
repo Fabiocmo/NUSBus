@@ -22,13 +22,14 @@ public class Bus implements Parcelable{
     @SerializedName("gps_time")
     Date gpsTime;
 
+    String service;
     double latitude;
     double longitude;
     double altitude;
     double speed;
     double heading;
 
-    public Bus(long nodeId, String vehicleSerial, Date gpsTime, double latitude, double longitude, double altitude, double speed, double heading) {
+    public Bus(long nodeId, String vehicleSerial, Date gpsTime, double latitude, double longitude, double altitude, double speed, double heading, String service) {
         this.nodeId = nodeId;
         this.vehicleSerial = vehicleSerial;
         this.gpsTime = gpsTime;
@@ -37,6 +38,7 @@ public class Bus implements Parcelable{
         this.altitude = altitude;
         this.speed = speed;
         this.heading = heading;
+        this.service = service;
     }
 
     protected Bus(Parcel in) {
@@ -47,6 +49,7 @@ public class Bus implements Parcelable{
         altitude = in.readDouble();
         speed = in.readDouble();
         heading = in.readDouble();
+        service = in.readString();
     }
 
     public static final Creator<Bus> CREATOR = new Creator<Bus>() {
@@ -125,6 +128,14 @@ public class Bus implements Parcelable{
         this.heading = heading;
     }
 
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -139,6 +150,7 @@ public class Bus implements Parcelable{
         parcel.writeDouble(altitude);
         parcel.writeDouble(speed);
         parcel.writeDouble(heading);
+        parcel.writeString(service);
     }
 }
 

@@ -281,7 +281,7 @@ public class MapTabFragment extends Fragment implements OnMapReadyCallback, BusP
                 LatLng pos = new LatLng(bus.getLatitude(), bus.getLongitude());
                 MarkerOptions mo = new MarkerOptions().position(pos)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon))
-                        .title(bus.getVehicleSerial());
+                        .title(bus.getService());
 
                 if(mMap != null)
                 {

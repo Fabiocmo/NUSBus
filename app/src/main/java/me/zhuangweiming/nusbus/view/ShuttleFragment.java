@@ -49,8 +49,7 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
         // Required empty public constructor
     }
 
-    public static ShuttleFragment newInstance(BusStop stop)
-    {
+    public static ShuttleFragment newInstance(BusStop stop) {
         ShuttleFragment sh = new ShuttleFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(STOP_KEY, stop);
@@ -108,40 +107,25 @@ public class ShuttleFragment extends Fragment implements LoadShuttleCallback, Re
 
         List<List<Shuttle>> buckets = new ArrayList<>();
 
-        for(int i=0; i<52; i++)
-        {
+        for(int i=0; i<52; i++) {
             buckets.add(new ArrayList<Shuttle>());
         }
 
-        for(Shuttle sh:shuttles)
-        {
+        for(Shuttle sh:shuttles) {
             int arriving = -1;
-            if(sh.getArrivalTime().equals("Arr"))
-            {
+            if(sh.getArrivalTime().equals("Arr")) {
                 arriving = 0;
-            }
-            else if(sh.getArrivalTime().equals("-"))
-            {
+            } else if(sh.getArrivalTime().equals("-")) {
                 arriving = 50;
-            }
-            else
-            {
+            } else {
                 arriving = Integer.parseInt(sh.getArrivalTime());
             }
 
             buckets.get(arriving).add(sh);
         }
         shuttles.clear();
-        for(List<Shuttle> sh:buckets)
-        {
+        for(List<Shuttle> sh:buckets) {
             shuttles.addAll(sh);
         }
     }
-
-    private void swap(int i, int j, List<Shuttle> shuttles) {
-        Shuttle temp = shuttles.get(i);
-        shuttles.set(i, shuttles.get(j));
-        shuttles.set(j, temp);
-    }
-
 }

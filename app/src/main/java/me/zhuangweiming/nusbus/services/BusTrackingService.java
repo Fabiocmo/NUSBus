@@ -42,33 +42,27 @@ public class BusTrackingService implements BusPositionsLoadedCallback {
         observers = new ArrayList<>();
     }
 
-    public void registerForUpdates(BusPositionsLoadedCallback callback)
-    {
-        if(observers.contains(callback))
-        {
+    public void registerForUpdates(BusPositionsLoadedCallback callback) {
+        if(observers.contains(callback)) {
             return;
         }
 
         observers.add(callback);
 
-        if(!isDownloadScheduled.get())
-        {
+        if(!isDownloadScheduled.get()) {
             context.registerReceiver(busBroadCastReceiver, filter);
             isDownloadScheduled.set(true);
             scheduleAlarm();
         }
     }
 
-    public void unregisterForUpdates(BusPositionsLoadedCallback callback)
-    {
-        try
-        {
+    public void unregisterForUpdates(BusPositionsLoadedCallback callback) {
+        try {
             observers.remove(callback);
         }
         catch (Exception e) {}
 
-        if(observers.isEmpty() && isDownloadScheduled.get())
-        {
+        if(observers.isEmpty() && isDownloadScheduled.get()) {
             context.unregisterReceiver(busBroadCastReceiver);
             isDownloadScheduled.set(false);
         }
@@ -82,8 +76,7 @@ public class BusTrackingService implements BusPositionsLoadedCallback {
             public void run() {
                 Intent i = new Intent(context, BusDownloadIntentService.class);
                 context.startService(i);
-                if(isDownloadScheduled.get())
-                {
+                if(isDownloadScheduled.get()) {
                     handler.postDelayed(this, 2000);
                 }
             }
@@ -92,16 +85,14 @@ public class BusTrackingService implements BusPositionsLoadedCallback {
 
     @Override
     public void onBusPositionsLoaded(List<Bus> busses) {
-        for(BusPositionsLoadedCallback callback : observers)
-        {
+        for(BusPositionsLoadedCallback callback : observers) {
             callback.onBusPositionsLoaded(busses);
         }
     }
 
     @Override
     public void onBusPositionsLoadingError(Exception exception) {
-        for(BusPositionsLoadedCallback callback : observers)
-        {
+        for(BusPositionsLoadedCallback callback : observers) {
             callback.onBusPositionsLoadingError(exception);
         }
     }

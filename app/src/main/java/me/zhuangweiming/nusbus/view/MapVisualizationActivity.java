@@ -75,29 +75,25 @@ public class MapVisualizationActivity extends AppCompatActivity implements OnMap
     }
 
     @Override
-    public void onBusPositionsLoaded(List<Bus> busses) {
+    public void onBusPositionsLoaded(List<Bus> buses) {
 
-        for(Bus bus : busses)
-        {
+        for(Bus bus : buses) {
             bussPositions.put(bus.getVehicleSerial(), bus);
             Marker marker = markers.get(bus.getVehicleSerial());
 
-            if(marker == null)
-            {
+            if(marker == null) {
                 LatLng pos = new LatLng(bus.getLatitude(), bus.getLongitude());
                 MarkerOptions mo = new MarkerOptions().position(pos)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon))
-                        .title(bus.getVehicleSerial());
+                        .title(bus.getService());
 
-                if(mMap != null)
-                {
+                if(mMap != null) {
                     marker = mMap.addMarker(mo);
                     markers.put(bus.getVehicleSerial(), marker);
                 }
             }
 
-            if(marker != null)
-            {
+            if(marker != null) {
                 LatLng pos = new LatLng(bus.getLatitude(), bus.getLongitude());
                 marker.setRotation((float) bus.getHeading());
                 MarkerAnimation.animateMarkerToGB(marker, pos, new LatLngInterpolator.Linear());
@@ -118,8 +114,7 @@ public class MapVisualizationActivity extends AppCompatActivity implements OnMap
             public void run() {
                 Intent i = new Intent(MapVisualizationActivity.this, BusDownloadIntentService.class);
                 MapVisualizationActivity.this.startService(i);
-                if(!MapVisualizationActivity.this.isFinishing())
-                {
+                if(!MapVisualizationActivity.this.isFinishing()) {
                     handler.postDelayed(this, REFRESHING_DELAY);
                 }
             }

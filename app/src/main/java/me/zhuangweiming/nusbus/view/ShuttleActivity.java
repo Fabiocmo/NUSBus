@@ -21,8 +21,7 @@ public class ShuttleActivity extends AppCompatActivity {
 
     private BusStop stop;
 
-    public static Intent getIntent(Context ctx, BusStop stop)
-    {
+    public static Intent getIntent(Context ctx, BusStop stop) {
         Intent intent = new Intent(ctx, ShuttleActivity.class);
         intent.putExtra(STOP_KEY, stop);
 
