@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "730645215698",
+    "firebase_url": "https://nus-bus-149718.firebaseio.com",
+    "project_id": "nus-bus-149718",
+    "storage_bucket": "nus-bus-149718.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730645215698:android:99414509c6aaa5be",
+        "android_client_info": {
+          "package_name": "me.zhuangweiming.nusbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730645215698-04sgoti3vctq9qrm84d3gdu8s9cacv4q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.zhuangweiming.nusbus",
+            "certificate_hash": "D86BA48320B8DEA1DBDAF920A95D76316204A50C"
+          }
+        },
+        {
+          "client_id": "730645215698-1mjphehr8ab5ahbq0rg0fpbiedsv55aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730645215698-1mjphehr8ab5ahbq0rg0fpbiedsv55aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
